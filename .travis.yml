@@ -22,12 +22,16 @@ install:
   - echo $PATH
   - cmd.exe //c "RefreshEnv.cmd"
 script:
+  - python -m venv manim-venv
+  - cd manim-venv
+  - source Scripts/activate
   - git clone https://github.com/3b1b/manim
   - cd manim
   - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
   - python -m pip install -r requirements.txt
   - python -m pip install pyinstaller
-  - python -m pyinstaller manim.py
+  - pyinstaller --version
+  - pyinstaller manim.py
   - 7z a -t7z dist/build$PYVER.zip dist/*.*
 cache:
   directories:
