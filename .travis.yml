@@ -25,9 +25,10 @@ script:
   - git clone https://github.com/3b1b/manim
   - cd manim
   - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
-  - pip install -r requirements.txt
-  - pip install --user pyinstaller
+  - python -m pip install -r requirements.txt
+  - python -m pip install pyinstaller
   - python -m pyinstaller manim.py
+  - 7z a -t7z dist/build$PYVER.zip dist/*.*
 cache:
   directories:
     - $HOME/.cache/pip
@@ -39,6 +40,6 @@ deploy:
   provider: releases
   file_glob: true
   api_key: $GITHUBOAUTHTOKEN
-  file: dist/*
+  file: dist/*.zip
   skip_cleanup: true
   draft: true
