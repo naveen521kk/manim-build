@@ -19,13 +19,14 @@ matrix:
 install:
   - choco install python --version=$PYVER
   - export PATH="/c/$PYDIR:/c/$PYDIR/Scripts:$PATH"
+  - echo $PATH
   - cmd.exe //c "RefreshEnv.cmd"
-  - pip install --user pyinstaller
 script:
   - git clone https://github.com/3b1b/manim
   - cd manim
   - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
   - pip install -r requirements.txt
+  - pip install --user pyinstaller
   - python -m pyinstaller manim.py
 cache:
   directories:
