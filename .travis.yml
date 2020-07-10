@@ -24,7 +24,7 @@ install:
 script:
   - git clone https://github.com/3b1b/manim
   - cd manim
-  - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python -3
+  - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
   - pip install -r requirements.txt
   - pyinstaller manim.py
 cache:
@@ -33,7 +33,7 @@ cache:
 
 before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log
-  
+
 deploy:
   provider: releases
   file_glob: true
