@@ -32,7 +32,9 @@ script:
   - python -m pip install pyinstaller
   - pyinstaller --version
   - pyinstaller manim.py
+  - dir
   - 7z a -t7z dist/build$PYVER.zip dist/*.*
+  - 7z a -t7z dist/build$PYVER.zip build/*.*
 cache:
   directories:
     - $HOME/.cache/pip
