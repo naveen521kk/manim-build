@@ -23,6 +23,8 @@ install:
   - cmd.exe //c "RefreshEnv.cmd"
 script:
   - python -m venv manim-venv
+  - cp logo.ico manim-venv/logo.ico
+  - cp build-windows.sh manim-venv/build-windows.sh
   - cd manim-venv
   - source Scripts/activate
   - git clone https://github.com/3b1b/manim
