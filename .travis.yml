@@ -26,6 +26,8 @@ script:
   - cd manim-venv
   - source Scripts/activate
   - git clone https://github.com/3b1b/manim
+  - cp build-windows.sh manim/build-windows.sh
+  - cp logo.ico manim/logo.ico
   - cd manim
   - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
   - python -m pip install -r requirements.txt
