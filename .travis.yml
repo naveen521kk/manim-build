@@ -31,7 +31,7 @@ script:
   - python -m pip install -r requirements.txt
   - python -m pip install pyinstaller
   - pyinstaller --version
-  - pyinstaller manim.py
+  - source build-windows.sh
   - dir
   - 7z a -t7z dist/build$PYVER.zip dist/*
   - 7z a -t7z dist/build$PYVER.zip build/*
