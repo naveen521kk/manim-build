@@ -30,7 +30,7 @@ script:
   - source ../python-x86.sh
   - dir
   - cd ../
-  - 7z a -t7z dist/build.$PYVER.x86.zip python.$PYVER.x86/*
+  - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
   #- 7z a -t7z dist/build.$PYVER.x64.zip python.$PYVER.x64/*
 cache:
   directories:
@@ -43,6 +43,6 @@ deploy:
   provider: releases
   file_glob: true
   api_key: $GITHUBOAUTHTOKEN
-  file: dist/*.zip
+  file: build.$PYVER.x86.zip
   skip_cleanup: true
   draft: true
