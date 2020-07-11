@@ -26,7 +26,7 @@ install:
   - cmd.exe //c "RefreshEnv.cmd"
 script:
   - cd python.$PYVER.x86
-  - source python-x86.sh
+  - source ../python-x86.sh
   - dir
   - 7z a -t7z dist/build.$PYVER.x86.zip python.$PYVER.x86/*
   #- 7z a -t7z dist/build.$PYVER.x64.zip python.$PYVER.x64/*
