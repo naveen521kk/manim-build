@@ -27,8 +27,8 @@ script:
   - cd python.$PYVER.x64
   - source ../python-x64.sh
   - dir
-  - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
-  - 7z a -t7z build.$PYVER.x64.zip python.$PYVER.x64
+  - 7z a -sfx build.$PYVER.x86.exe python.$PYVER.x86
+  - 7z a -sfx build.$PYVER.x64.exe python.$PYVER.x64
 cache:
   directories:
     - $HOME/.cache/pip
@@ -40,6 +40,6 @@ deploy:
   provider: releases
   file_glob: true
   api_key: $GITHUBOAUTHTOKEN
-  file: build.$PYVER.x86.zip
+  file: "*.exe"
   skip_cleanup: true
   draft: true
