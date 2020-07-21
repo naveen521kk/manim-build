@@ -29,7 +29,7 @@ script:
   - source ../python-x64.sh
   - cd ../
   - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
-  #- 7z a -t7z dist/build.$PYVER.x64.zip python.$PYVER.x64/*
+  - 7z a -t7z build.$PYVER.x64.zip python.$PYVER.x64
 cache:
   directories:
     - $HOME/.cache/pip
