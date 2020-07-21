@@ -5,6 +5,6 @@ export SOX_FILE=sox-14.4.2-win32
 ./pythonx86.$PYVER/tools/python.exe -m pip install -i https://test.pypi.org/simple/ pycairo
 ./pythonx86.$PYVER/tools/python.exe -m pip install -r manim/requirements.txt
 cd manim
-./pythonx86.$PYVER/tools/python.exe pip -m pip install .
+./pythonx86.$PYVER/tools/python.exe setup.py install
 cd ../
 cd ../
