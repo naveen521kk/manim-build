@@ -1,10 +1,5 @@
 matrix:
-  include:
-    - os: windows
-      language: sh
-      python: 3.6
-      name: Build on Python 3.6.8 in Windows
-      env: PYVER="3.6.8" PYDIR="Python36" 
+  include: 
     - os: windows
       language: sh
       python: 3.7
@@ -17,28 +12,23 @@ matrix:
       env: PYVER="3.8.3" PYDIR="Python38" 
 
 install:
-  - choco install python --version=$PYVER
-  - export PATH="/c/$PYDIR:/c/$PYDIR/Scripts:$PATH"
-  - echo $PATH
+  - curl -L https://aka.ms/nugetclidl -o nuget.exe
+  - git clone https://github.com/ManimCommunity/manim.git
+  - ./nuget install pythonx86 -Version $PYVER -OutputDirectory python.$PYVER.x86
+  - cd python.$PYVER.x86 && cp -r ../manim manim && cd ../
+  - ./nuget install python -Version $PYVER -OutputDirectory python.$PYVER.x64
+  - cd python.$PYVER.x64 && mv ../manim manim && cd ../
   - cmd.exe //c "RefreshEnv.cmd"
 script:
-  - python -m venv manim-venv
-  - cp logo.ico manim-venv/logo.ico
-  - cp build-windows.sh manim-venv/build-windows.sh
-  - cd manim-venv
-  - source Scripts/activate
-  - git clone https://github.com/3b1b/manim
-  - cp build-windows.sh manim/build-windows.sh
-  - cp logo.ico manim/logo.ico
-  - cd manim
-  - curl -sSL https://raw.githubusercontent.com/ManimCommunity/manim/master/scripts/pycairoinstall.py | python
-  - python -m pip install -r requirements.txt
-  - python -m pip install pyinstaller
-  - pyinstaller --version
-  - source build-windows.sh
   - dir
-  - 7z a -t7z dist/build$PYVER.zip dist/*
-  - 7z a -t7z dist/build$PYVER.zip build/*
+  - cd python.$PYVER.x86
+  - source ../python-x86.sh
+  - dir
+  - cd python.$PYVER.x64
+  - source ../python-x64.sh
+  - dir
+  - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
+  - 7z a -t7z build.$PYVER.x64.zip python.$PYVER.x64
 cache:
   directories:
     - $HOME/.cache/pip
@@ -50,6 +40,6 @@ deploy:
   provider: releases
   file_glob: true
   api_key: $GITHUBOAUTHTOKEN
-  file: dist/*.zip
+  file: build.$PYVER.x86.zip
   skip_cleanup: true
   draft: true
