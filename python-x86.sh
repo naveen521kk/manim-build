@@ -7,4 +7,5 @@ export SOX_FILE=sox-14.4.2-win32
 cd manim
 ./pythonx86.$PYVER/tools/python.exe setup.py install
 cd ../
+dir python.$PYVER/tools/Scripts
 cd ../
