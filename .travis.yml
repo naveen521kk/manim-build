@@ -28,6 +28,7 @@ script:
   - cd python.$PYVER.x64
   - source ../python-x64.sh
   - cd ../
+  - dir
   - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
   - 7z a -t7z build.$PYVER.x64.zip python.$PYVER.x64
 cache:
