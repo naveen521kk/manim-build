@@ -1,10 +1,5 @@
 matrix:
-  include:
-    - os: windows
-      language: sh
-      python: 3.6
-      name: Build on Python 3.6.8 in Windows
-      env: PYVER="3.6.8" PYDIR="Python36" 
+  include: 
     - os: windows
       language: sh
       python: 3.7
@@ -29,6 +24,7 @@ script:
   - cd python.$PYVER.x86
   - source ../python-x86.sh
   - dir
+  - source ../python-x64.sh
   - cd ../
   - 7z a -t7z build.$PYVER.x86.zip python.$PYVER.x86
   #- 7z a -t7z dist/build.$PYVER.x64.zip python.$PYVER.x64/*
