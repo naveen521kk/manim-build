@@ -13,7 +13,7 @@ matrix:
 
 install:
   - curl -L https://aka.ms/nugetclidl -o nuget.exe
-  - git clone https://github.com/3b1b/manim
+  - git clone https://github.com/ManimCommunity/manim.git
   - ./nuget install pythonx86 -Version $PYVER -OutputDirectory python.$PYVER.x86
   - cd python.$PYVER.x86 && cp -r ../manim manim && cd ../
   - ./nuget install python -Version $PYVER -OutputDirectory python.$PYVER.x64
