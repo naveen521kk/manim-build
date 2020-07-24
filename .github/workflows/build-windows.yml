@@ -37,5 +37,5 @@ jobs:
         cmd.exe //c "RefreshEnv.cmd"
     - name: Build 64 binaries
       run: |
-        python-x64.bat
+        ./python-x64.bat
         python -V
