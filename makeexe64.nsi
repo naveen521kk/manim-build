@@ -6,7 +6,7 @@
 !define ARCH_TAG ".amd64"
 !define INSTALLER_NAME "Manim_1.0.exe"
 !define PRODUCT_ICON "logo.ico"
-
+!define PYVER=3.8.3
 ; Marker file to tell the uninstaller that it's a user installation
 !define USER_INSTALL_MARKER _user_install_marker
 
@@ -57,8 +57,8 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 64
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\$python.$PYVER.x64"
-  File /r "$python.$PYVER.x64\*"
+  SetOutPath "$INSTDIR\python.$PYVER.x64"
+  File /r "python.$PYVER.x64\*"
   SetOutPath "$INSTDIR"
 
   ; Marker file for per-user install
@@ -76,7 +76,7 @@ Section "!${PRODUCT_NAME}" sec_app
   ; Install directories
     SetOutPath "$INSTDIR\python.$PYVER.x64\manim\docs"
     File /r "docs\*"
-    SetOutPath "$INSTDIR\$python.$PYVER.x64\manim\example_scenes"
+    SetOutPath "$INSTDIR\python.$PYVER.x64\manim\example_scenes"
     File /r "example_scenes\*.*"
 
     DetailPrint "Setting up command-line launchers..."
