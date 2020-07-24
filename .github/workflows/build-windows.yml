@@ -8,7 +8,7 @@ on:
     branches: [ master, build-nsis ]
 
 jobs:
-  build-3.8.3:
+  build_3_8_3:
     runs-on: windows-latest
 
     steps:
