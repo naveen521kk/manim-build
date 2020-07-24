@@ -19,7 +19,7 @@ install:
   - ./nuget install python -Version $PYVER -OutputDirectory python.$PYVER.x64
   - cd python.$PYVER.x64 && mv ../manim manim && cd ../
   - curl -L https://downloads.sourceforge.net/project/nsis/NSIS%203/3.05/nsis-3.05-setup.exe -o nsisinstaller.exe
-  - nsisinstaller /S /D=C:\Program Files\NSIS
+  - ./nsisinstaller /S /D=C:\Program Files\NSIS
   - export PATH=/c/Program Files/NSIS:$PATH
   - cmd.exe //c "RefreshEnv.cmd"
 script:
