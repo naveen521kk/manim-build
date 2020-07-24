@@ -33,6 +33,8 @@ jobs:
         cmd.exe //c "RefreshEnv.cmd"
     - name: Build 64 binaries
       run: |
+        dir
         cd python.$env:PYVER.x64
-        python-x64.bat
+        dir
+        ../python-x64.bat
         makensis makeexe64.nsi 
