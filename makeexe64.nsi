@@ -7,6 +7,7 @@
 !define INSTALLER_NAME "Manim_1.0.exe"
 !define PRODUCT_ICON "logo.ico"
 !define PYVER=3.8.3
+!define ARCH_VERSION=".x64"
 ; Marker file to tell the uninstaller that it's a user installation
 !define USER_INSTALL_MARKER _user_install_marker
 
@@ -57,8 +58,8 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 64
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\python.$PYVER.x64"
-  File /r "python.$PYVER.x64\*.*"
+  SetOutPath "$INSTDIR\python.$PYVER$ARCH_VERSION"
+  File /r "python.$PYVER$ARCH_VERSION\*.*"
   SetOutPath "$INSTDIR"
 
   ; Marker file for per-user install
@@ -74,20 +75,20 @@ Section "!${PRODUCT_NAME}" sec_app
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "$INSTDIR\python.$PYVER.x64\manim\docs"
+    SetOutPath "$INSTDIR\python.$PYVER$ARCH_VERSION\manim\docs"
     File /r "docs\*.*"
-    SetOutPath "$INSTDIR\python.$PYVER.x64\manim\example_scenes"
+    SetOutPath "$INSTDIR\python.$PYVER$ARCH_VERSION\manim\example_scenes"
     File /r "example_scenes\*.*"
 
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x64\tools\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.$PYVER.x64\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.$PYVER$ARCH_VERSION\tools\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.$PYVER$ARCH_VERSION\tools\Scripts"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x64\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.$PYVER.x64\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.$PYVER$ARCH_VERSION\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.$PYVER$ARCH_VERSION\tools\Scripts"'
     AddedSysPath:
 
   ; Add ourselves to Add/remove programs
@@ -125,7 +126,7 @@ Section "Uninstall"
   Delete "$INSTDIR\${PRODUCT_ICON}"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x64\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.$PYVER.x64\tools\Scripts"'
+    nsExec::ExecToLog '"$INSTDIR\python.$PYVER$ARCH_VERSION\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.$PYVER$ARCH_VERSION\tools\Scripts"'
 
   ; Uninstall files
     Delete "$INSTDIR\logo.ico"
