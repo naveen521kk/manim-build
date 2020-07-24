@@ -58,7 +58,7 @@ Section "!${PRODUCT_NAME}" sec_app
   SectionIn RO
   File ${PRODUCT_ICON}
   SetOutPath "$INSTDIR\python.$PYVER.x64"
-  File /r "python.$PYVER.x64\*"
+  File /r "python.$PYVER.x64\*.*"
   SetOutPath "$INSTDIR"
 
   ; Marker file for per-user install
@@ -75,7 +75,7 @@ Section "!${PRODUCT_NAME}" sec_app
 
   ; Install directories
     SetOutPath "$INSTDIR\python.$PYVER.x64\manim\docs"
-    File /r "docs\*"
+    File /r "docs\*.*"
     SetOutPath "$INSTDIR\python.$PYVER.x64\manim\example_scenes"
     File /r "example_scenes\*.*"
 
