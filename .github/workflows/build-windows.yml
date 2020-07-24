@@ -34,5 +34,5 @@ jobs:
     - name: Build 64 binaries
       run: |
         cd python.$env:PYVER.x64
-        ./python-x64.bat
+        python-x64.bat
         makensis makeexe64.nsi 
