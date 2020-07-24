@@ -56,8 +56,8 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 32
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\pkgs"
-  File /r "pkgs\*.*"
+  SetOutPath "$INSTDIR\$python.$PYVER.x86"
+  File /r "$python.$PYVER.x86\*"
   SetOutPath "$INSTDIR"
 
   ; Marker file for per-user install
@@ -68,46 +68,27 @@ Section "!${PRODUCT_NAME}" sec_app
 
       ; Install files
     SetOutPath "$INSTDIR"
-      File "Manim.launch.pyw"
       File "logo.ico"
-      File "LICENSE.community"
       File "LICENSE"
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "$INSTDIR\Python"
-    File /r "Python\*.*"
-    SetOutPath "$INSTDIR\bin"
-    File /r "bin\*.*"
-    SetOutPath "$INSTDIR\docs"
-    File /r "docs\*.*"
-    SetOutPath "$INSTDIR\example_scenes"
-    File /r "example_scenes\*.*"
-
-
-
-  ; Install shortcuts
-  ; The output path becomes the working directory for shortcuts
-  SetOutPath "%HOMEDRIVE%\%HOMEPATH%"
-    CreateShortCut "$SMPROGRAMS\Manim.lnk" "$INSTDIR\Python\pythonw.exe" \
-      '"$INSTDIR\Manim.launch.pyw"' "$INSTDIR\logo.ico"
-  SetOutPath "$INSTDIR"
+    SetOutPath "$INSTDIR\python.$PYVER.x86\manim\docs"
+    File /r "docs\*"
+    SetOutPath "$INSTDIR\$python.$PYVER.x86\manim\example_scenes"
+    File /r "example_scenes\*"
 
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\bin"'
+      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\bin"'
+      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
     AddedSysPath:
 
-  ; Byte-compile Python files.
-  DetailPrint "Byte-compiling Python modules..."
-  nsExec::ExecToLog '"$INSTDIR\Python\python" -m compileall -q "$INSTDIR\pkgs"'
-  WriteUninstaller $INSTDIR\uninstall.exe
   ; Add ourselves to Add/remove programs
   WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
                    "DisplayName" "${PRODUCT_NAME}"
@@ -144,12 +125,10 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\pkgs"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\bin"'
+    nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
 
   ; Uninstall files
-    Delete "$INSTDIR\Manim.launch.pyw"
     Delete "$INSTDIR\logo.ico"
-    Delete "$INSTDIR\LICENSE.community"
     Delete "$INSTDIR\LICENSE"
     Delete "$INSTDIR\_system_path.py"
   ; Uninstall directories
@@ -158,8 +137,6 @@ Section "Uninstall"
     RMDir /r "$INSTDIR\docs"
     RMDir /r "$INSTDIR\example_scenes"
 
-  ; Uninstall shortcuts
-      Delete "$SMPROGRAMS\Manim.lnk"
   RMDir $INSTDIR
   DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 SectionEnd

@@ -37,4 +37,5 @@ jobs:
         cd python.$env:PYVER.x64
         dir
         ../python-x64.bat
+        cd ../
         makensis makeexe64.nsi 
