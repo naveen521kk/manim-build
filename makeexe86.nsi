@@ -35,7 +35,7 @@ SetCompressor lzma
 
 ; UI pages
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE LICENSE
+!insertmacro MUI_PAGE_LICENSE LICENSE.community
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -79,7 +79,9 @@ Section "!${PRODUCT_NAME}" sec_app
     File /r "python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
     SetOutPath "$INSTDIR\example_scenes"
     File /r "python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
-
+  SetOutPath "%HOMEDRIVE%\%HOMEPATH%"
+    CreateShortCut "$SMPROGRAMS\Manim.lnk" "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\pythonw.exe" "$INSTDIR\logo.ico"
+  SetOutPath "$INSTDIR"
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
@@ -92,7 +94,8 @@ Section "!${PRODUCT_NAME}" sec_app
       nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
       nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
-
+  
+  WriteUninstaller $INSTDIR\uninstall.exe
   ; Add ourselves to Add/remove programs
   WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
                    "DisplayName" "${PRODUCT_NAME}"
