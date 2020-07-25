@@ -46,6 +46,8 @@ jobs:
       run: |
         ./Manim_1.0.exe /S /INSTDIR=C:\Manim
         Test-Path C:\Manim
+        Test-Path $env:APPDATA\Manim
+        Test-Path $env:PROGRAMFILES\Manim
     - name: Upload Files
       uses: actions/upload-artifact@v2
       with:

@@ -75,11 +75,12 @@ Section "!${PRODUCT_NAME}" sec_app
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "$INSTDIR\docs\*.*"
+    SetOutPath "$INSTDIR\docs"
     File /r "python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
-    SetOutPath "$INSTDIR\example_scenes\*.*"
+    SetOutPath "$INSTDIR\example_scenes"
     File /r "python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
 
+  SetOutPath "$INSTDIR"
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
@@ -92,6 +93,7 @@ Section "!${PRODUCT_NAME}" sec_app
       nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
       nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
+
   WriteUninstaller $INSTDIR\uninstaller.exe
   ; Add ourselves to Add/remove programs
   WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
@@ -124,11 +126,12 @@ Section "Uninstall"
     SetShellVarContext current
     Delete "$INSTDIR\${USER_INSTALL_MARKER}"
 
-  Delete "$INSTDIR\uninstall.exe"
+  Delete $INSTDIR\uninstall.exe
   Delete "$INSTDIR\${PRODUCT_ICON}"
+  RMDir /r "$INSTDIR\docs"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\Scripts"'
+    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
 
   ; Uninstall files
     Delete "$INSTDIR\logo.ico"
