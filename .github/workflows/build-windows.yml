@@ -42,6 +42,7 @@ jobs:
         cd ../
         dir
         makensis makeexe64.nsi
+        makensis makeexe86.nsi
     - name: Test Generated Files
       run: |
         ./Manim_1.0.exe /S /INSTDIR=C:\Manim
@@ -52,5 +53,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Manim
-        path: ./Manim_1.0.exe
+        path: ./*.exe
         

@@ -6,6 +6,8 @@
 !define ARCH_TAG ""
 !define INSTALLER_NAME "Manim_1.0.exe"
 !define PRODUCT_ICON "logo.ico"
+!define PYVER "3.8.3"
+!define ARCH_VERSION ".x86"
 
 ; Marker file to tell the uninstaller that it's a user installation
 !define USER_INSTALL_MARKER _user_install_marker
@@ -56,9 +58,9 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 32
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\$python.$PYVER.x86"
-  File /r "$python.$PYVER.x86\*"
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\python.${PYVER}${ARCH_VERSION}"
+  File /r "python.${PYVER}${ARCH_VERSION}\*.*"
+
 
   ; Marker file for per-user install
   StrCmp $MultiUser.InstallMode CurrentUser 0 +3
@@ -73,20 +75,22 @@ Section "!${PRODUCT_NAME}" sec_app
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "$INSTDIR\python.$PYVER.x86\manim\docs"
-    File /r "docs\*"
-    SetOutPath "$INSTDIR\$python.$PYVER.x86\manim\example_scenes"
-    File /r "example_scenes\*"
+    SetOutPath "$INSTDIR\docs"
+    File /r "python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
+    SetOutPath "$INSTDIR\example_scenes"
+    File /r "python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
 
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
 
   ; Add ourselves to Add/remove programs
@@ -122,18 +126,17 @@ Section "Uninstall"
 
   Delete $INSTDIR\uninstall.exe
   Delete "$INSTDIR\${PRODUCT_ICON}"
-  RMDir /r "$INSTDIR\pkgs"
+  RMDir /r "$INSTDIR\docs"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\python.$PYVER.x86\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.$PYVER.x86\tools\Scripts"'
+    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
 
   ; Uninstall files
     Delete "$INSTDIR\logo.ico"
     Delete "$INSTDIR\LICENSE"
     Delete "$INSTDIR\_system_path.py"
   ; Uninstall directories
-    RMDir /r "$INSTDIR\Python"
-    RMDir /r "$INSTDIR\bin"
+    RMDir /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}"
     RMDir /r "$INSTDIR\docs"
     RMDir /r "$INSTDIR\example_scenes"
 
