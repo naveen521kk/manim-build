@@ -39,3 +39,8 @@ jobs:
         ../python-x64.bat
         cd ../
         makensis makeexe64.nsi 
+    - name: Test Generated Files
+      run: |
+        ./Manim_1.0.exe /D=C:\Manim
+        cmd.exe //c "RefreshEnv.cmd"
+        manim -h

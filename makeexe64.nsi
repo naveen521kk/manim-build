@@ -58,7 +58,7 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 64
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\python.${PYVER$}${ARCH_VERSION}"
+  SetOutPath "$INSTDIR\python.${PYVER}${ARCH_VERSION}"
   File /r "python.${PYVER}${ARCH_VERSION}\*.*"
   SetOutPath "$INSTDIR"
 
@@ -76,9 +76,9 @@ Section "!${PRODUCT_NAME}" sec_app
 
   ; Install directories
     SetOutPath "docs\*.*"
-    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\docs"
+    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
     SetOutPath "example_scenes\*.*"
-    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\example_scenes"
+    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
 
     DetailPrint "Setting up command-line launchers..."
 
