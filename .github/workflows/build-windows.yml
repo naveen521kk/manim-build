@@ -1,11 +1,8 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Python application
+name: Build Manim For Windows
 
 on:
   push:
-    branches: [ master, build-nsis ]
+    branches: [ master, release-*]
 
 jobs:
   build_3_8_3:
@@ -33,14 +30,14 @@ jobs:
         cmd.exe //c "RefreshEnv.cmd"
     - name: Build 64 binaries
       run: |
-        dir
         cd python.$env:PYVER.x64
-        dir
         ../python-x64.bat
-        dir
         dir manim/
         cd ../
-        dir
+        cd python.$env:PYVER.x86
+        ../python-x86.bat
+        dir manim/
+        cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
     - name: Test Generated Files
@@ -50,9 +47,37 @@ jobs:
         Test-Path C:\Manim
         Test-Path $env:APPDATA\Manim
         Test-Path $env:PROGRAMFILES\Manim
-    - name: Upload Files
-      uses: actions/upload-artifact@v2
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        name: Manim
-        path: ./*.exe
-        
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: true
+          prerelease: false
+    - name: Upload Release Asset x64
+      id: upload-release-assetx64 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./Manim_1.0x64.exe
+        asset_name: Manim_1.0x64.exe
+        asset_content_type: application/exe
+    - name: Upload Release Asset x86
+      id: upload-release-assetx86 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./Manim_1.0x86.exe
+        asset_name: Manim_1.0x86.exe
+        asset_content_type: application/exe
