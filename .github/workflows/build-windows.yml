@@ -28,7 +28,7 @@ jobs:
         $env:Path += ";" + "C:\NSIS"
         echo "::set-env name=Path::$env:Path"
         cmd.exe //c "RefreshEnv.cmd"
-    - name: Build 64 binaries
+    - name: Build exe Files
       run: |
         cd python.$env:PYVER.x64
         ../python-x64.bat
