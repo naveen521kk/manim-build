@@ -77,8 +77,8 @@ Section "!${PRODUCT_NAME}" sec_app
   ; Install directories
     ;SetOutPath "docs\*.*"
     ;File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
-    SetOutPath "example_scenes\*.*"
-    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
+    ;SetOutPath "example_scenes\*.*"
+    ;File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
 
     DetailPrint "Setting up command-line launchers..."
 
