@@ -4,7 +4,7 @@
 !define PY_MAJOR_VERSION "3.7"
 !define BITNESS "32"
 !define ARCH_TAG ""
-!define INSTALLER_NAME "Manim_1.0.exe"
+!define INSTALLER_NAME "Manim_1.0x86.exe"
 !define PRODUCT_ICON "logo.ico"
 !define PYVER "3.8.3"
 !define ARCH_VERSION ".x86"
