@@ -35,7 +35,7 @@ SetCompressor lzma
 
 ; UI pages
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE LICENSE.community
+!insertmacro MUI_PAGE_LICENSE LICENSE
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
