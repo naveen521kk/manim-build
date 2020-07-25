@@ -46,7 +46,7 @@ jobs:
       run: |
         ./Manim_1.0.exe /S /D=C:\Manim
     - name: Upload Files
-    - uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: Manim
         path: ./Manim_1.0.exe
