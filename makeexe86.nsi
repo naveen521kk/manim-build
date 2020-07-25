@@ -4,8 +4,10 @@
 !define PY_MAJOR_VERSION "3.7"
 !define BITNESS "32"
 !define ARCH_TAG ""
-!define INSTALLER_NAME "Manim_1.0.exe"
+!define INSTALLER_NAME "Manim_1.0x86.exe"
 !define PRODUCT_ICON "logo.ico"
+!define PYVER "3.8.3"
+!define ARCH_VERSION ".x86"
 
 ; Marker file to tell the uninstaller that it's a user installation
 !define USER_INSTALL_MARKER _user_install_marker
@@ -56,9 +58,9 @@ Section "!${PRODUCT_NAME}" sec_app
   SetRegView 32
   SectionIn RO
   File ${PRODUCT_ICON}
-  SetOutPath "$INSTDIR\pkgs"
-  File /r "pkgs\*.*"
-  SetOutPath "$INSTDIR"
+  SetOutPath "$INSTDIR\python.${PYVER}${ARCH_VERSION}"
+  File /r "python.${PYVER}${ARCH_VERSION}\*.*"
+
 
   ; Marker file for per-user install
   StrCmp $MultiUser.InstallMode CurrentUser 0 +3
@@ -68,45 +70,31 @@ Section "!${PRODUCT_NAME}" sec_app
 
       ; Install files
     SetOutPath "$INSTDIR"
-      File "Manim.launch.pyw"
       File "logo.ico"
-      File "LICENSE.community"
       File "LICENSE"
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "$INSTDIR\Python"
-    File /r "Python\*.*"
-    SetOutPath "$INSTDIR\bin"
-    File /r "bin\*.*"
     SetOutPath "$INSTDIR\docs"
-    File /r "docs\*.*"
+    File /r "python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
     SetOutPath "$INSTDIR\example_scenes"
-    File /r "example_scenes\*.*"
-
-
-
-  ; Install shortcuts
-  ; The output path becomes the working directory for shortcuts
+    File /r "python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
   SetOutPath "%HOMEDRIVE%\%HOMEPATH%"
-    CreateShortCut "$SMPROGRAMS\Manim.lnk" "$INSTDIR\Python\pythonw.exe" \
-      '"$INSTDIR\Manim.launch.pyw"' "$INSTDIR\logo.ico"
+    CreateShortCut "$SMPROGRAMS\Manim.lnk" "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\pythonw.exe" "$INSTDIR\logo.ico"
   SetOutPath "$INSTDIR"
-
     DetailPrint "Setting up command-line launchers..."
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\bin"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\bin"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
-
-  ; Byte-compile Python files.
-  DetailPrint "Byte-compiling Python modules..."
-  nsExec::ExecToLog '"$INSTDIR\Python\python" -m compileall -q "$INSTDIR\pkgs"'
+  
   WriteUninstaller $INSTDIR\uninstall.exe
   ; Add ourselves to Add/remove programs
   WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
@@ -141,25 +129,20 @@ Section "Uninstall"
 
   Delete $INSTDIR\uninstall.exe
   Delete "$INSTDIR\${PRODUCT_ICON}"
-  RMDir /r "$INSTDIR\pkgs"
+  RMDir /r "$INSTDIR\docs"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\Python\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\bin"'
+    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
 
   ; Uninstall files
-    Delete "$INSTDIR\Manim.launch.pyw"
     Delete "$INSTDIR\logo.ico"
-    Delete "$INSTDIR\LICENSE.community"
     Delete "$INSTDIR\LICENSE"
     Delete "$INSTDIR\_system_path.py"
   ; Uninstall directories
-    RMDir /r "$INSTDIR\Python"
-    RMDir /r "$INSTDIR\bin"
+    RMDir /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}"
     RMDir /r "$INSTDIR\docs"
     RMDir /r "$INSTDIR\example_scenes"
 
-  ; Uninstall shortcuts
-      Delete "$SMPROGRAMS\Manim.lnk"
   RMDir $INSTDIR
   DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 SectionEnd
