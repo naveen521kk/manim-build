@@ -46,11 +46,13 @@ jobs:
     - name: Test Generated Files
       run: |
         ./Manim_1.0x64.exe /S /INSTDIR=D:\Manimx64
-        Start-Sleep -s 200
+        Start-Sleep -s 300
         ./Manim_1.0x86.exe /S /INSTDIR=D:\Manimx86
-        Start-Sleep -s 200
+        Start-Sleep -s 300
         Test-Path D:\Manimx64
         Test-Path D:\Manimx86
+        dir D:\Manimx64
+        dir D:\Manimx86
         echo $env:PATH
         Try {Invoke-WebRequest https://yihui.org/gh/tinytex/tools/install-windows.bat -O install_tinytex.bat}
         Catch {Invoke-WebRequest https://raw.githubusercontent.com/yihui/tinytex/master/tools/install-windows.bat -O install_tinytex.bat}
@@ -59,5 +61,10 @@ jobs:
         tlmgr install standalone preview doublestroke ms setspace rsfs relsize ragged2e fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super babel-english
         choco install --no-progress ffmpeg
         choco install --no-progress sox.portable
-        echo "::set-env name=Path::$env:Path"
+        echo $env:PATH
+        $env:Path += ";" + "D:\Manimx64\python.3.8.3.x64\python.3.8.3\tools\Scripts"
+        tree D:\Manimx64
+        tree D:\Manimx86
         manim -h
+        echo "::set-env name=Path::$env:Path"
+        
