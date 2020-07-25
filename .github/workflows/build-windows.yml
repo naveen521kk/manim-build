@@ -45,8 +45,9 @@ jobs:
     - name: Test Generated Files
       run: |
         ./Manim_1.0.exe /S /D=C:\Manim
-        dir C:\Manim
-        cd C:\Manim\python.3.8.3.x64\manim\example_scenes
-        dir
-        cmd.exe //c "RefreshEnv.cmd"
+    - name: Upload Files
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Manim
+        path: ./Manim_1.0.exe
         
