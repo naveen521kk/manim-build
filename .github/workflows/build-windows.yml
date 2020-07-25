@@ -44,7 +44,7 @@ jobs:
         makensis makeexe64.nsi
     - name: Test Generated Files
       run: |
-        ./Manim_1.0.exe /D=C:\Manim
+        ./Manim_1.0.exe /S /D=C:\Manim
         dir C:\Manim
         cd C:\Manim\python.3.8.3.x64\manim\example_scenes
         dir

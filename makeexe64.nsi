@@ -90,7 +90,7 @@ Section "!${PRODUCT_NAME}" sec_app
       ; Add to PATH for all users
       nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\Scripts"'
     AddedSysPath:
-
+  WriteUninstaller $INSTDIR\uninstaller.exe
   ; Add ourselves to Add/remove programs
   WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
                    "DisplayName" "${PRODUCT_NAME}"
