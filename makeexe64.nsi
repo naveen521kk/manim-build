@@ -84,11 +84,13 @@ Section "!${PRODUCT_NAME}" sec_app
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python.exe" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
   WriteUninstaller $INSTDIR\uninstaller.exe
   ; Add ourselves to Add/remove programs
@@ -122,7 +124,7 @@ Section "Uninstall"
     SetShellVarContext current
     Delete "$INSTDIR\${USER_INSTALL_MARKER}"
 
-  Delete $INSTDIR\uninstall.exe
+  Delete "$INSTDIR\uninstall.exe"
   Delete "$INSTDIR\${PRODUCT_ICON}"
 
   ; Remove ourselves from %PATH%
@@ -137,7 +139,7 @@ Section "Uninstall"
     RMDir /r "$INSTDIR\docs"
     RMDir /r "$INSTDIR\example_scenes"
 
-  RMDir $INSTDIR
+  RMDir /r $INSTDIR
   DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 SectionEnd
 
