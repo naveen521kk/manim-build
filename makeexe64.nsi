@@ -75,8 +75,8 @@ Section "!${PRODUCT_NAME}" sec_app
       File "_system_path.py"
 
   ; Install directories
-    SetOutPath "docs\*.*"
-    File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
+    ;SetOutPath "docs\*.*"
+    ;File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\docs\*.*"
     SetOutPath "example_scenes\*.*"
     File /r "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim\example_scenes\*.*"
 

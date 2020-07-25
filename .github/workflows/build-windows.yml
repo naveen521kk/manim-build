@@ -37,7 +37,10 @@ jobs:
         cd python.$env:PYVER.x64
         dir
         ../python-x64.bat
+        dir
+        dir manim/
         cd ../
+        dir
         makensis makeexe64.nsi 
     - name: Test Generated Files
       run: |
