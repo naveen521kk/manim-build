@@ -45,7 +45,8 @@ jobs:
         makensis makeexe86.nsi
     - name: Test Generated Files
       run: |
-        ./Manim_1.0.exe /S /INSTDIR=C:\Manim
+        ./Manim_1.0x64.exe /S /INSTDIR=C:\Manim
+        ./Manim_1.0x86.exe /S /INSTDIR=C:\Manim
         Test-Path C:\Manim
         Test-Path $env:APPDATA\Manim
         Test-Path $env:PROGRAMFILES\Manim
