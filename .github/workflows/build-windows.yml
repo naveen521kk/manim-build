@@ -54,20 +54,20 @@ jobs:
         dir D:\Manimx64
         dir D:\Manimx86
         echo $env:PATH
-        Try {Invoke-WebRequest https://yihui.org/gh/tinytex/tools/install-windows.bat -O install_tinytex.bat}
-        Catch {Invoke-WebRequest https://raw.githubusercontent.com/yihui/tinytex/master/tools/install-windows.bat -O install_tinytex.bat}
-        Start-Process install_tinytex.bat -NoNewWindow -Wait
-        $env:Path += ";" + $env:APPDATA + "\TinyTeX\bin\win32"
-        tlmgr install standalone preview doublestroke ms setspace rsfs relsize ragged2e fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super babel-english
-        choco install --no-progress ffmpeg
-        choco install --no-progress sox.portable
-        echo $env:PATH
         $env:Path += ";" + "D:\Manimx64\python.3.8.3.x64\python.3.8.3\tools\Scripts"
         tree D:\Manimx64
         tree D:\Manimx86
-        manim -h
         echo "::set-env name=Path::$env:Path"
-
+    - name: Upload Release Asset x86
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
+        asset_path: ./Manim_1.0x86.exe
+        asset_name: Manim_1.0x86.exe
+        asset_content_type: application/exe
     - name: Upload Release Asset x64
       id: upload-release-assetx64 
       uses: actions/upload-release-asset@v1
@@ -75,8 +75,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
-        asset_path: ./build.$PYVER.x64.exe
-        asset_name: build.$PYVER.x64.exe
+        asset_path: ./build.$env:PYVER.x64.exe
+        asset_name: build.$env:PYVER.x64.exe
         asset_content_type: application/exe
     - name: Upload Release Asset x86
       id: upload-release-assetx86 
@@ -85,6 +85,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
-        asset_path: ./build.$PYVER.x64.exe
-        asset_name: build.$PYVER.x64.exe
-        asset_content_type: application/exe       
+        asset_path: ./build.$env:PYVER.x64.exe
+        asset_name: build.$env:PYVER.x64.exe
+        asset_content_type: application/exe     
+   
