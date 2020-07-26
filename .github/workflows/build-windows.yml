@@ -20,7 +20,7 @@ jobs:
       run: |
         cd "Choco Package"
         choco pack
-        choco install package-name -s .
+        choco install manim -s .
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files
       run: |
