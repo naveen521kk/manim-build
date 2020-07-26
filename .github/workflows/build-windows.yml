@@ -49,12 +49,6 @@ jobs:
         ./Manim_1.0x86.exe /S /INSTDIR=D:\Manimx86
         Test-Path D:\Manimx64
         Test-Path D:\Manimx86
-        dir D:\Manimx64
-        dir D:\Manimx86
-        echo $env:PATH
-        $env:Path += ";" + "D:\Manimx64\python.3.8.3.x64\python.3.8.3\tools\Scripts"
-        tree D:\Manimx64
-        tree D:\Manimx86
         echo "::set-env name=Path::$env:Path"
     - name: Upload Release Asset x86
       id: upload-release-asset
