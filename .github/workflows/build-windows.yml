@@ -33,6 +33,10 @@ jobs:
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O //raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py
         manim basic.py OpeningManimExample
+    - uses: actions/upload-artifact@v2
+      with:
+        name: chocologs
+        path: C:\ProgramData\chocolatey\logs\chocolatey.log
         
         
         
