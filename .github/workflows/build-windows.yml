@@ -18,7 +18,8 @@ jobs:
 
     - name: Make choco Package
       run: |
-        cd "Choco Package"
+        cd "choco"
+        cd "manim"
         choco pack
         choco install manim -s .
         echo "::set-env name=Path::$env:Path"
