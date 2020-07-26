@@ -11,10 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: set-env
-      uses: allenevans/set-env@v1.1.0
-      with:
-        PYVER: "3.8.3"
-        PYDIR: Python38
+      run: |
+        $env:PYVER="3.8.3"
+        $env:PYDIR="Python38"
+        echo "::set-env name=PYDIR::$env:PYDIR"
+        echo "::set-env name=PYVER::$env:PYVER"
     - name: Install dependencies
       run: |
         curl -L https://aka.ms/nugetclidl -o nuget.exe
@@ -40,8 +41,8 @@ jobs:
         cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
-        7z a -sfx build.$PYVER.x86.exe python.$PYVER.x86
-        7z a -sfx build.$PYVER.x64.exe python.$PYVER.x64
+        7z a -sfx build.$env:PYVER.x86.exe python.$env:PYVER.x86
+        7z a -sfx build.$env:PYVER.x64.exe python.$env:PYVER.x64
     - name: Test Generated Files
       run: |
         ./Manim_1.0x64.exe /S /INSTDIR=D:\Manimx64
