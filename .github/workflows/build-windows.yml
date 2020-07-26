@@ -46,9 +46,7 @@ jobs:
     - name: Test Generated Files
       run: |
         ./Manim_1.0x64.exe /S /INSTDIR=D:\Manimx64
-        Start-Sleep -s 300
         ./Manim_1.0x86.exe /S /INSTDIR=D:\Manimx86
-        Start-Sleep -s 300
         Test-Path D:\Manimx64
         Test-Path D:\Manimx86
         dir D:\Manimx64
@@ -64,7 +62,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
+        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
         asset_path: ./Manim_1.0x86.exe
         asset_name: Manim_1.0x86.exe
         asset_content_type: application/exe
@@ -74,7 +72,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
+        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
         asset_path: ./build.$env:PYVER.x64.exe
         asset_name: build.$env:PYVER.x64.exe
         asset_content_type: application/exe
@@ -84,7 +82,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: https://github.com/naveen521kk/manim-build/releases/tag/v0.1.0
+        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
         asset_path: ./build.$env:PYVER.x64.exe
         asset_name: build.$env:PYVER.x64.exe
         asset_content_type: application/exe     
