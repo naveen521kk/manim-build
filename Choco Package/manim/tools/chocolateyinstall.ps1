@@ -16,10 +16,12 @@ $packageArgs = @{
 }
 $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
-if ($osBitness==64)
+if ( $osBitness==32 ) {
     Install-ChocolateyPath $toolsDir+'pythonx86.3.8.3\tools\Scripts' 'Machine'
-else
+}
+else {
     Install-ChocolateyPath $toolsDir+'python.3.8.3\tools\Scripts' 'Machine'
+}
 
 
 

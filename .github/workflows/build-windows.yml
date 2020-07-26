@@ -40,16 +40,6 @@ jobs:
         cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
-    - name: Upload Release Asset x86
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
-        asset_path: ./Manim_1.0x86.exe
-        asset_name: Manim_1.0x86.exe
-        asset_content_type: application/exe
 
     - name: Make choco Package
       run: |
