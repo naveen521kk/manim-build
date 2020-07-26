@@ -11,11 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: set-env
-      run: |
-        $env:PYVER="3.8.3"
-        $env:PYDIR="Python38"
-        echo "::set-env name=PYDIR::$env:PYDIR"
-        echo "::set-env name=PYVER::$env:PYVER"
+      uses: allenevans/set-env@v1.1.0
+      with:
+        PYVER: "3.8.3"
+        PYDIR: Python38
     - name: Install dependencies
       run: |
         curl -L https://aka.ms/nugetclidl -o nuget.exe
@@ -41,15 +40,6 @@ jobs:
         cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
-        7z a -sfx build.$env:PYVER.x86.exe python.$env:PYVER.x86
-        7z a -sfx build.$env:PYVER.x64.exe python.$env:PYVER.x64
-    - name: Test Generated Files
-      run: |
-        ./Manim_1.0x64.exe /S /INSTDIR=D:\Manimx64
-        ./Manim_1.0x86.exe /S /INSTDIR=D:\Manimx86
-        Test-Path D:\Manimx64
-        Test-Path D:\Manimx86
-        echo "::set-env name=Path::$env:Path"
     - name: Upload Release Asset x86
       id: upload-release-asset
       uses: actions/upload-release-asset@v1
@@ -60,24 +50,23 @@ jobs:
         asset_path: ./Manim_1.0x86.exe
         asset_name: Manim_1.0x86.exe
         asset_content_type: application/exe
-    - name: Upload Release Asset x64
-      id: upload-release-assetx64 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
-        asset_path: ./build.3.8.3.x64.exe
-        asset_name: build.3.8.3.x64.exe
-        asset_content_type: application/exe
-    - name: Upload Release Asset x86
-      id: upload-release-assetx86 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
-        asset_path: ./build.3.8.3.x86.exe
-        asset_name: build.3.8.3.x86.exe
-        asset_content_type: application/exe     
-   
+
+    - name: Make choco Package
+      run: |
+        cd "Choco Package"
+        choco pack
+        choco install package-name -s .
+        echo "::set-env name=Path::$env:Path"
+    - name: Test Generated Files
+      run: |
+        Try {Invoke-WebRequest https://yihui.org/gh/tinytex/tools/install-windows.bat -O install_tinytex.bat}
+        Catch {Invoke-WebRequest https://raw.githubusercontent.com/yihui/tinytex/master/tools/install-windows.bat -O install_tinytex.bat}
+        Start-Process install_tinytex.bat -NoNewWindow -Wait
+        $env:Path += ";" + $env:APPDATA + "\TinyTeX\bin\win32"
+        tlmgr install standalone preview doublestroke ms setspace rsfs relsize ragged2e fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super babel-english
+        manim -h
+        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O //raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py
+        manim basic.py OpeningManimExample
+        
+        
+        
