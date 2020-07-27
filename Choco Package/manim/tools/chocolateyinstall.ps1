@@ -1,4 +1,4 @@
-﻿Import-Module $ChocolateyProfile
+﻿
 $ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $url        = 'https://github.com/naveen521kk/manim-build/releases/download/0.0.0.1/build.3.8.3.x86.exe'
@@ -16,10 +16,10 @@ $packageArgs = @{
 }
 $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
-
+Import-Module $ChocolateyProfile
 if ( $osBitness -eq 32 ) {
     Install-ChocolateyPath $toolsDir'\pythonx86.3.8.3\tools\Scripts' 'Machine'
-    $packageLoc = %ChocolateyInstall%\lib\package-name
+    $packageLoc = %ChocolateyInstall%\lib\manim
     $pythonLocation = Join-Path -Path $packageLoc -ChildPath "pythonx863.8.3\pythonx86.3.8.3\tools"
     $manimLocation = Join-Path -Path $packageLoc -ChildPath "manim\"
     $initialLocation = $pwd
@@ -30,7 +30,7 @@ if ( $osBitness -eq 32 ) {
 }
 else {
     Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
-    $packageLoc = %ChocolateyInstall%\lib\package-name
+    $packageLoc = %ChocolateyInstall%\lib\manim
     $pythonLocation = Join-Path -Path $packageLoc -ChildPath "python.3.8.3\tools"
     $manimLocation = Join-Path -Path $packageLoc -ChildPath "manim\"
     $initialLocation = $pwd
