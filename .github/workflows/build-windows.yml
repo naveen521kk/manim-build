@@ -21,7 +21,7 @@ jobs:
         cd "Choco Package"
         cd "manim"
         choco pack
-        choco install manim -source "'.;https://chocolatey.org/api/v2/'"
+        choco install manim -source "'.;https://chocolatey.org/api/v2/'" --ignore-checksums
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files
       run: |
