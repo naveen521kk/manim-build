@@ -19,8 +19,8 @@
     <summary>Animation engine for explanatory math videos </summary>
     <description>Manim is an animation engine for explanatory math videos. It's used to create precise animations programmatically, as seen in the videos at 3Blue1Brown.</description>
     <dependencies>
-      <dependency id="ffmpeg" version="(,4.3]" />
-      <dependency id="sox.portable" version="(,14.4.1]" />
+      <dependency id="ffmpeg" version="4.3.0.20200630" />
+      <dependency id="sox.portable" version="14.4.1" />
       <dependency id="chocolatey" version="0.9.8.21" />
     </dependencies>    
   </metadata>
