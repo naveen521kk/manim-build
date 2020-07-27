@@ -18,9 +18,10 @@ $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
 
 if ( $osBitness -eq 32 ) {
-    Install-ChocolateyPath $toolsDir'python3.8.3.x86\pythonx86.3.8.3\tools\Scripts' 'Machine'
-    $pythonLocation = Join-Path -Path $toolsDir -ChildPath "python3.8.3.x86\pythonx863.8.3\pythonx86.3.8.3\tools"
-    $manimLocation = Join-Path -Path $toolsDir -ChildPath "manim\"
+    Install-ChocolateyPath $toolsDir'\python3.8.3.x86\pythonx86.3.8.3\tools\Scripts' 'Machine'
+    $packageLoc = %ChocolateyInstall%\lib\package-name
+    $pythonLocation = Join-Path -Path $packageLoc -ChildPath "python3.8.3.x86\pythonx863.8.3\pythonx86.3.8.3\tools"
+    $manimLocation = Join-Path -Path $packageLoc -ChildPath "manim\"
     $initialLocation = $pwd
     tree
     Set-Location $pythonLocation
@@ -28,9 +29,10 @@ if ( $osBitness -eq 32 ) {
     Set-Location $initialLocation
 }
 else {
-    Install-ChocolateyPath $toolsDir'python3.8.3.x64\python.3.8.3\tools\Scripts' 'Machine'
-    $pythonLocation = Join-Path -Path $toolsDir -ChildPath "python3.8.3.x64\python.3.8.3\tools"
-    $manimLocation = Join-Path -Path $toolsDir -ChildPath "manim\"
+    Install-ChocolateyPath $toolsDir'\python3.8.3.x64\python.3.8.3\tools\Scripts' 'Machine'
+    $packageLoc = %ChocolateyInstall%\lib\package-name
+    $pythonLocation = Join-Path -Path $packageLoc -ChildPath "python3.8.3.x64\python.3.8.3\tools"
+    $manimLocation = Join-Path -Path $packageLoc -ChildPath "manim\"
     $initialLocation = $pwd
     tree
     Set-Location $pythonLocation
