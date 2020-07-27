@@ -16,6 +16,7 @@ $packageArgs = @{
 }
 $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
+pythonx86.3.8.3\tools\python -m pip install manim\
 if ( $osBitness -eq 32 ) {
     Install-ChocolateyPath $toolsDir+'pythonx86.3.8.3\tools\Scripts' 'Machine'
 }
