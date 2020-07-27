@@ -16,17 +16,24 @@ $packageArgs = @{
 }
 $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
-$pythonLocation = Join-Path -Path $toolsDir -ChildPath "pythonx86.3.8.3\tools"
-$manimLocation = Join-Path -Path $toolsDir -ChildPath "manim\"
-$initialLocation = $pwd
-Set-Location $pythonLocation
-python -m pip install $manimLocation
-Set-Location $initialLocation
+
 if ( $osBitness -eq 32 ) {
     Install-ChocolateyPath $toolsDir'pythonx86.3.8.3\tools\Scripts' 'Machine'
+    $pythonLocation = Join-Path -Path $toolsDir -ChildPath "pythonx86.3.8.3\tools"
+    $manimLocation = Join-Path -Path $toolsDir -ChildPath "manim\"
+    $initialLocation = $pwd
+    Set-Location $pythonLocation
+    python -m pip install $manimLocation
+    Set-Location $initialLocation
 }
 else {
     Install-ChocolateyPath $toolsDir'python.3.8.3\tools\Scripts' 'Machine'
+    $pythonLocation = Join-Path -Path $toolsDir -ChildPath "python.3.8.3\tools"
+    $manimLocation = Join-Path -Path $toolsDir -ChildPath "manim\"
+    $initialLocation = $pwd
+    Set-Location $pythonLocation
+    python -m pip install $manimLocation
+    Set-Location $initialLocation
 }
 
 
