@@ -25,14 +25,9 @@ jobs:
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files
       run: |
-        Try {Invoke-WebRequest https://yihui.org/gh/tinytex/tools/install-windows.bat -O install_tinytex.bat}
-        Catch {Invoke-WebRequest https://raw.githubusercontent.com/yihui/tinytex/master/tools/install-windows.bat -O install_tinytex.bat}
-        Start-Process install_tinytex.bat -NoNewWindow -Wait
-        $env:Path += ";" + $env:APPDATA + "\TinyTeX\bin\win32"
-        tlmgr install standalone preview doublestroke ms setspace rsfs relsize ragged2e fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super babel-english
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
-        manim basic.py OpeningManimExample
+        manim basic.py SquareToCircle
     - uses: actions/upload-artifact@v2
       with:
         name: chocologs
