@@ -40,44 +40,26 @@ jobs:
         cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
-    - name: Test Generated Files
-      run: |
-        ./Manim_1.0x64.exe /S /INSTDIR=C:\Manim
-        ./Manim_1.0x86.exe /S /INSTDIR=C:\Manim
-        Test-Path C:\Manim
-        Test-Path $env:APPDATA\Manim
-        Test-Path $env:PROGRAMFILES\Manim
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: true
-          prerelease: false
-    - name: Upload Release Asset x64
-      id: upload-release-assetx64 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./Manim_1.0x64.exe
-        asset_name: Manim_1.0x64.exe
-        asset_content_type: application/exe
+        7z a -sfx build.$env:PYVER.x86.exe python.$env:PYVER.x86
+        7z a -sfx build.$env:PYVER.x64.exe python.$env:PYVER.x64
+
     - name: Upload Release Asset x86
       id: upload-release-assetx86 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./Manim_1.0x86.exe
-        asset_name: Manim_1.0x86.exe
+        upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
+        asset_path: ./build.$env:PYVER.x86.exe
+        asset_name: build.$env:PYVER.x86.exe
+        asset_content_type: application/exe
+    - name: Upload Release Asset x64
+      id: upload-release-assetx64 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
+        asset_path: ./build.$env:PYVER.x64.exe
+        asset_name: build.$env:PYVER.x64.exe
         asset_content_type: application/exe
