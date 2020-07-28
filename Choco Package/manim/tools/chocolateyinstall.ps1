@@ -24,5 +24,7 @@ if ( $osBitness -eq 32 ) {
 else {
     Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
     dir $toolsDir
+    tree $toolsDir
+    dir $toolsDir\python.3.8.3.x64
     dir $ChocolateyInstall
 }
