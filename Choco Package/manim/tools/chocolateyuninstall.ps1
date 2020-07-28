@@ -11,4 +11,3 @@ if ( $osBitness -eq 64 ) {
 else {
   Uninstall-ChocolateyZipPackage $env:ChocolateyPackageName "build.3.8.3.x86.exe"
 }
-Uninstall-ChocolateyEnvironmentVariable # 0.9.10+ - https://chocolatey.org/docs/helpers-uninstall-chocolatey-environment-variable 

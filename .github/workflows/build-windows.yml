@@ -24,6 +24,7 @@ jobs:
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
+        choco uninstall -y manim
     - name: Upload Logs if failes
       uses: actions/upload-artifact@v2
       if: ${{ failure() }}
