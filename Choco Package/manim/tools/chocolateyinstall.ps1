@@ -23,7 +23,7 @@ if ( $osBitness -eq 32 ) {
     ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
 }
 else {
-    $pydir= "$toolsDir\python.3.8.3.x86\python.3.8.3\tools"
+    $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
     Set-Location $pydir
     ./python.exe -m pip install -q --upgrade pip
     ./python.exe -m pip install -q "$toolsDir\python.3.8.3.x64\manim"
