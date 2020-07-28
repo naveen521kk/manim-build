@@ -22,7 +22,6 @@ jobs:
         cd "manim"
         choco pack
         choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'" --ignore-checksums
-        Start-Sleep -s 500
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files
       run: |
