@@ -17,27 +17,21 @@ $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
 
 if ( $osBitness -eq 32 ) {
-    Install-ChocolateyPath $toolsDir'\pythonx86.3.8.3\tools\Scripts' 'Machine'
-    dir $toolsDir
-    dir $ChocolateyInstall
+    $pydir= "$toolsDir\python.3.8.3.x86\python.3.8.3\tools"
+    Set-Location $pydir
+    ./python.exe -m pip install -q --upgrade pip
+    ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
 }
 else {
-    Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
-    $oridir=$pwd
-    $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
-    $manimdir = "'$toolsDir\python.3.8.3.x64\manim\'"
-    #$manimpip = Resolve-Path -LiteralPath $manimdir -Relative
-    cd $pydir
-    dir
-    ./python.exe -m pip install --upgrade pip
-    ./python.exe -m pip install https://github.com/ManimCommunity/manim/archive/master.zip
-    #python -m pip install $manimdir
-    #cd $oridir
-    #dir $ChocolateyInstall
+    $pydir= "$toolsDir\python.3.8.3.x86\python.3.8.3\tools"
+    Set-Location $pydir
+    ./python.exe -m pip install -q --upgrade pip
+    ./python.exe -m pip install -q "$toolsDir\python.3.8.3.x64\manim"
+    ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
     $files = get-childitem $installDir -include *.exe -recurse
 
     foreach ($file in $files) {
-      if (!($file.Name.Contains("manim.exe")) -and !($file.Name.Contains("manimcm.exe"))) {
+      if (!($file.Name.Contains("manim.exe")) -and !($file.Name.Contains("manimcm.exe")) -and !($file.Name.Contains("python.exe"))) {
         #generate an ignore file
         New-Item "$file.ignore" -type file -force | Out-Null
       }
