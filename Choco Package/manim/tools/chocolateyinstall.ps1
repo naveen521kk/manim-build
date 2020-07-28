@@ -27,10 +27,10 @@ else {
     $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
     $manimdir = "'$toolsDir\python.3.8.3.x64\manim\'"
     #$manimpip = Resolve-Path -LiteralPath $manimdir -Relative
-    #cd $pydir
-    python -m pip install https://github.com/ManimCommunity/manim/archive/master.zip
+    cd $pydir
+    python -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
     #python -m pip install $manimdir
-    #cd $oridir
+    cd $oridir
     #dir $ChocolateyInstall
     $files = get-childitem $installDir -include *.exe -recurse
     foreach ($file in $files) {
