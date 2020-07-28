@@ -8,9 +8,9 @@ $packageArgs = @{
   unzipLocation = $toolsDir
   url           = $url
   url64bit      = $url64
-  checksum      = '91F347B3499F664D4AC9C435F8327C25846FA27072471F35BAB5719383F135D8'
+  checksum      = '0314451a7a95ec772556756e50c9650f1f222bd5912daa1f027aabe4b308adb6'
   checksumType  = 'sha256'
-  checksum64    = '0314451A7A95EC772556756E50C9650F1F222BD5912DAA1F027AABE4B308ADB6'
+  checksum64    = '91f347b3499f664d4ac9c435f8327c25846fa27072471f35bab5719383f135d8'
   checksumType64= 'sha256'
 }
 $osBitness = Get-ProcessorBits
