@@ -10,16 +10,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: set-env
-      uses: allenevans/set-env@v1.1.0
-      with:
-        PYVER: "3.8.3"
-        PYDIR: Python38
 
     - name: Make choco Package
       run: |
         cd "Choco Package"
         cd "manim"
+        echo "Starting Chocolately"
         choco pack
         choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'" --ignore-checksums
         echo "::set-env name=Path::$env:Path"
