@@ -25,10 +25,10 @@ else {
     Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
     $oridir=$pwd
     $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
-    $manimdir = "'$toolsDir\manim\'"
-    $manimpip = Resolve-Path -LiteralPath $manimdir -Relative
+    $manimdir = "'$toolsDir\python.3.8.3.x64\manim\'"
+    #$manimpip = Resolve-Path -LiteralPath $manimdir -Relative
     cd $pydir
-    python -m pip install $manimpip
+    python -m pip install $manimdir
     cd $oridir
     dir $ChocolateyInstall
     $files = get-childitem $installDir -include *.exe -recurse
