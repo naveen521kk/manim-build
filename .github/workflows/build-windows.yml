@@ -24,6 +24,9 @@ jobs:
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
+        echo "Update Manim"
+        choco upgrade manim
+        manim basic.py SquareToCircle
         choco uninstall -y manim
         manim -h
     - name: Upload Logs if failes
