@@ -40,8 +40,8 @@ jobs:
         cd ../
         makensis makeexe64.nsi
         makensis makeexe86.nsi
-        7z a -sfx build.$env:PYVER.x86.exe python.$env:PYVER.x86
-        7z a -sfx build.$env:PYVER.x64.exe python.$env:PYVER.x64
+        7z a -sfx windows.choco.build.py3.8.3.x86.exe python.$env:PYVER.x86
+        7z a -sfx windows.choco.build.py3.8.3.x64.exe python.$env:PYVER.x64
 
     - name: Upload Release Asset x86
       id: upload-release-assetx86 
@@ -50,8 +50,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
-        asset_path: ./build.$env:PYVER.x86.exe
-        asset_name: build.$env:PYVER.x86.exe
+        asset_path: ./windows.choco.build.py3.8.3.x86.exe
+        asset_name: windows.choco.build.py3.8.3.x86.exe
         asset_content_type: application/exe
     - name: Upload Release Asset x64
       id: upload-release-assetx64 
@@ -60,6 +60,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
-        asset_path: ./build.$env:PYVER.x64.exe
-        asset_name: build.$env:PYVER.x64.exe
+        asset_path: ./windows.choco.build.py3.8.3.x64.exe
+        asset_name: windows.choco.build.py3.8.3.x64.exe
         asset_content_type: application/exe
