@@ -28,7 +28,7 @@ else {
     $manimdir = "'$toolsDir\python.3.8.3.x64\manim\'"
     #$manimpip = Resolve-Path -LiteralPath $manimdir -Relative
     cd $pydir
-    python -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
+    python.exe -m pip install https://github.com/ManimCommunity/manim/archive/master.zip
     #python -m pip install $manimdir
     cd $oridir
     #dir $ChocolateyInstall
