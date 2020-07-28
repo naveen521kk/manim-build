@@ -8,7 +8,7 @@ $packageArgs = @{
   unzipLocation = $toolsDir
   url           = $url
   url64bit      = $url64
-  checksum      = '0314451a7a95ec772556756e50c9650f1f222bd5912daa1f027aabe4b308adb6'
+  checksum      = '0314451A7A95EC772556756E50C9650F1F222BD5912DAA1F027AABE4B308ADB6'
   checksumType  = 'sha256'
   checksum64    = '91f347b3499f664d4ac9c435f8327c25846fa27072471f35bab5719383f135d8'
   checksumType64= 'sha256'
@@ -29,7 +29,7 @@ else {
     #$manimpip = Resolve-Path -LiteralPath $manimdir -Relative
     cd $pydir
     dir
-    ./python.exe -m pip install https://github.com/ManimCommunity/manim/archive/master.zip
+    ./python.exe -m pip install "$toolsDir\python.3.8.3.x64\manim"
     #python -m pip install $manimdir
     cd $oridir
     #dir $ChocolateyInstall
