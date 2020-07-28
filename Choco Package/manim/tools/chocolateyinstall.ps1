@@ -34,12 +34,12 @@ else {
     #python -m pip install $manimdir
     #cd $oridir
     #dir $ChocolateyInstall
-    $files = get-childitem $toolsDir -include *.exe -recurse
-    foreach ($file in $files) {
-      if (!($file -eq "manim.exe" -or $file -eq "manimcm.exe")){
-        New-Item "$file.ignore" -type file -force | Out-Null
-      }else{
-        echo "No"
-      }
-    }
+    #$files = get-childitem $toolsDir -include *.exe -recurse
+    #foreach ($file in $files) {
+    #  if (!($file -eq "manim.exe" -or $file -eq "manimcm.exe")){
+    #   New-Item "$file.ignore" -type file -force | Out-Null
+    #  }else{
+    #    echo "No"
+    #  }
+    #}
 }
