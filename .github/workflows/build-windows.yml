@@ -30,6 +30,9 @@ jobs:
         choco uninstall -y manim
     - name: test 32-bit
       run: |
+        cd "Choco Package"
+        cd "manim"
+        echo "Starting Chocolately"
         choco install --no-progress manim --x86 -source "'.;https://chocolatey.org/api/v2/'"
         manim basic.py SquareToCircle
         echo "Update Manim"
