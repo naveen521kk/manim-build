@@ -28,7 +28,14 @@ jobs:
         choco upgrade manim
         manim basic.py SquareToCircle
         choco uninstall -y manim
-        manim -h
+    - name: test 32-bit
+      run: |
+        choco install --no-progress manim --x86 -source "'.;https://chocolatey.org/api/v2/'"
+        manim basic.py SquareToCircle
+        echo "Update Manim"
+        choco upgrade manim
+        manim basic.py SquareToCircle
+        choco uninstall -y manim
     - name: Upload Logs if failes
       uses: actions/upload-artifact@v2
       if: ${{ failure() }}
