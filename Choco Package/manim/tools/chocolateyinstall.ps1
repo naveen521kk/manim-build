@@ -19,8 +19,10 @@ Install-ChocolateyZipPackage @packageArgs
 if ( $osBitness -eq 32 ) {
     Install-ChocolateyPath $toolsDir'\pythonx86.3.8.3\tools\Scripts' 'Machine'
     dir $toolsDir
+    dir $ChocolateyInstall
 }
 else {
     Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
     dir $toolsDir
+    dir $ChocolateyInstall
 }
