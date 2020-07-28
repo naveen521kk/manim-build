@@ -17,14 +17,13 @@ jobs:
         cd "manim"
         echo "Starting Chocolately"
         choco pack
-        choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'" --ignore-checksums
+        choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'"
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files
       run: |
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
-        choco uninstall manim
     - name: Upload Logs if failes
       uses: actions/upload-artifact@v2
       if: ${{ failure() }}
