@@ -25,6 +25,11 @@ else {
     Install-ChocolateyPath $toolsDir'\python.3.8.3\tools\Scripts' 'Machine'
     dir $toolsDir
     tree $toolsDir
-    dir $toolsDir\python.3.8.3.x64
+    $oridir=$pwd
+    $pydir= $toolsDir+'\python.3.8.3.x64\python.3.8.3\tools'
+    $manimdir = $toolsDir+'\manim'
+    cd $pydir
+    python -m pip install $manimdir
+    cd $oridir
     dir $ChocolateyInstall
 }
