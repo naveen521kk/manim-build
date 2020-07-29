@@ -4,11 +4,10 @@
     <id>manim</id>
     <version>1.0</version>
     <packageSourceUrl>https://github.com/manimcommunity/manim</packageSourceUrl>
-    <owners>Eulertour</owners>
+    <owners>Naveen</owners>
     <title>Manim</title>
     <authors>Manim Contributors</authors>
     <projectUrl>https://github.com/manimcommunity/manim</projectUrl>
-    <projectSourceUrl>https://github.com/manimcommunity/manim</projectSourceUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/ManimCommunity/manim/logo/graph.png</iconUrl>
     <copyright>Manim Contributors 2020</copyright>
     <licenseUrl>https://github.com/ManimCommunity/manim/blob/master/LICENSE.community</licenseUrl>
@@ -19,7 +18,6 @@
     <summary>Animation engine for explanatory math videos </summary>
     <description>Manim is an animation engine for explanatory math videos. It's used to create precise animations programmatically, as seen in the videos at 3Blue1Brown.</description>
     <dependencies>
-      <dependency id="chocolatey" version="0.9.8.21" />
       <dependency id="sox.portable" version="14.4.1" />
       <dependency id="ffmpeg" version="4.2" />
     </dependencies>    
