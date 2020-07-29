@@ -17,7 +17,7 @@ $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
 
 if ( $osBitness -eq 32 -or $env:ChocolateyForceX86) {
-    $pydir= "$toolsDir\python.3.8.3.x86\python.3.8.3\tools"
+    $pydir= "$toolsDir\python.3.8.3.x86\pythonx86.3.8.3\tools"
     Set-Location $pydir
     ./python.exe -m pip install -q --upgrade pip
     ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
