@@ -15,9 +15,7 @@ $packageArgs = @{
 }
 $osBitness = Get-ProcessorBits
 Install-ChocolateyZipPackage @packageArgs
-echo $env:ChocolateyForceX86
 if ( $osBitness -eq 32 -or $env:ChocolateyForceX86 -eq "true") {
-    echo "32-bit"
     $pydir= "$toolsDir\python.3.8.3.x86\pythonx86.3.8.3\tools"
     Set-Location $pydir
     ./python.exe -m pip install -q --upgrade pip
@@ -33,7 +31,6 @@ if ( $osBitness -eq 32 -or $env:ChocolateyForceX86 -eq "true") {
     }
 }
 else {
-    echo "64-bit"
     $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
     Set-Location $pydir
     ./python.exe -m pip install -q --upgrade pip

@@ -8,11 +8,11 @@
     <title>Manim</title>
     <authors>Manim Contributors</authors>
     <projectUrl>https://github.com/manimcommunity/manim</projectUrl>
+    <projectSourceUrl>https://github.com/manimcommunity/manim</projectSourceUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/ManimCommunity/manim/logo/graph.png</iconUrl>
     <copyright>Manim Contributors 2020</copyright>
     <licenseUrl>https://github.com/ManimCommunity/manim/blob/master/LICENSE.community</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/manimcommunity/manim</projectSourceUrl>
     <docsUrl>https://manim.readthedocs.io/</docsUrl>
     <bugTrackerUrl>https://github.com/ManimCommunity/manim/issues</bugTrackerUrl>
     <tags>manim python animation</tags>
