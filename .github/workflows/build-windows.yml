@@ -25,7 +25,7 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
         echo "Update Manim"
-        choco upgrade manim
+        choco upgrade manim -source "'.;https://chocolatey.org/api/v2/'"
         manim basic.py SquareToCircle
         choco uninstall -y manim
     - name: test 32-bit
@@ -37,7 +37,7 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
         echo "Update Manim"
-        choco upgrade manim
+        choco upgrade manim -source "'.;https://chocolatey.org/api/v2/'"
         manim basic.py SquareToCircle
         choco uninstall -y manim
     - name: Upload Logs if failes
