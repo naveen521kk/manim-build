@@ -34,6 +34,7 @@ jobs:
         cd "manim"
         echo "Starting Chocolately"
         choco install --no-progress manim --x86 -source "'.;https://chocolatey.org/api/v2/'"
+        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
         echo "Update Manim"
         choco upgrade manim
