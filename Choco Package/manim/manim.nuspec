@@ -5,11 +5,11 @@
     <version>1.0</version>
     <packageSourceUrl>https://github.com/manimcommunity/manim</packageSourceUrl>
     <owners>Eulertour</owners>
-    <title>Manim (Install)</title>
+    <title>Manim</title>
     <authors>Manim Contributors</authors>
     <projectUrl>https://github.com/manimcommunity/manim</projectUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/ManimCommunity/manim/logo/graph.png</iconUrl>
-    <copyright>2020</copyright>
+    <copyright>Manim Contributors 2020</copyright>
     <licenseUrl>https://github.com/ManimCommunity/manim/blob/master/LICENSE.community</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <projectSourceUrl>https://github.com/manimcommunity/manim</projectSourceUrl>
@@ -22,7 +22,6 @@
       <dependency id="chocolatey" version="0.9.8.21" />
       <dependency id="sox.portable" version="14.4.1" />
       <dependency id="ffmpeg" version="4.2" />
-      <dependency id="git" version="2.27.0" />
     </dependencies>    
   </metadata>
   <files>
