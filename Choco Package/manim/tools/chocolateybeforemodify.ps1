@@ -2,7 +2,7 @@
 $osBitness = Get-ProcessorBits
 if ( $osBitness -eq 32 -or $env:ChocolateyForceX86 -eq "true") {
   $pydir= "$env:ChocolateyPackageFolder\tools\python.3.8.3.x86\pythonx86.3.8.3\tools"
-else {
+} else {
   $pydir= "$env:ChocolateyPackageFolder\tools\python.3.8.3.x64\python.3.8.3\tools"
 }
 Set-Location $pydir
