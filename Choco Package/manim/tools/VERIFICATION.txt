@@ -1,0 +1,19 @@
+﻿
+VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+ 
+The installer have been downloaded from GitHub and can be verified like this:
+
+1. Download the following installers:
+  32-Bit: <https://github.com/naveen521kk/manim-build/releases/download/0.0.0.1/build.3.8.3.x86.exe>
+  64-Bit: <https://github.com/naveen521kk/manim-build/releases/download/0.0.0.1/build.3.8.3.x64.exe>
+2. You can use one of the following methods to obtain the checksum
+  - Use powershell function 'Get-Filehash'
+  - Use chocolatey utility 'checksum.exe'
+
+  checksum type: 
+  checksum32: 0314451A7A95EC772556756E50C9650F1F222BD5912DAA1F027AABE4B308ADB6
+  checksum64: 91f347b3499f664d4ac9c435f8327c25846fa27072471f35bab5719383f135d8
+
+File 'LICENSE.txt' is obtained from <https://github.com/naveen521kk/manim-build/blob/master/LICENSE>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>manim</id>
+    <version>1.0</version>
+    <packageSourceUrl>https://github.com/manimcommunity/manim</packageSourceUrl>
+    <owners>Naveen</owners>
+    <title>Manim</title>
+    <authors>Manim Contributors</authors>
+    <projectUrl>https://github.com/manimcommunity/manim</projectUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/ManimCommunity/manim/logo/graph.png</iconUrl>
+    <copyright>Manim Contributors 2020</copyright>
+    <licenseUrl>https://github.com/ManimCommunity/manim/blob/master/LICENSE.community</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <docsUrl>https://manim.readthedocs.io/</docsUrl>
+    <bugTrackerUrl>https://github.com/ManimCommunity/manim/issues</bugTrackerUrl>
+    <tags>manim python animation</tags>
+    <summary>Animation engine for explanatory math videos </summary>
+    <description>Manim is an animation engine for explanatory math videos. It's used to create precise animations programmatically, as seen in the videos at 3Blue1Brown.</description>
+    <dependencies>
+      <dependency id="sox.portable" version="14.4.1" />
+      <dependency id="ffmpeg" version="4.2" />
+    </dependencies>    
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

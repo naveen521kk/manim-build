@@ -11,10 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: set-env
-      uses: allenevans/set-env@v1.1.0
-      with:
-        PYVER: "3.8.3"
-        PYDIR: Python38
+      run: |
+        $env:PYVER="3.8.3"
+        $env:PYDIR="Python38"
+        echo "::set-env name=PYVER::$env:PYVER"
+        echo "::set-env name=PYDIR::$env:PYDIR"
     - name: Install dependencies
       run: |
         curl -L https://aka.ms/nugetclidl -o nuget.exe
@@ -42,24 +43,98 @@ jobs:
         makensis makeexe86.nsi
         7z a -sfx windows.choco.build.py3.8.3.x86.exe python.$env:PYVER.x86
         7z a -sfx windows.choco.build.py3.8.3.x64.exe python.$env:PYVER.x64
-
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+            - First Change
+            - Second Change
+        draft: false
+        prerelease: false
     - name: Upload Release Asset x86
-      id: upload-release-assetx86 
+      id: upload-release-asset-zip-x86 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
+        upload_url:  ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./windows.choco.build.py3.8.3.x86.exe
         asset_name: windows.choco.build.py3.8.3.x86.exe
         asset_content_type: application/exe
     - name: Upload Release Asset x64
-      id: upload-release-assetx64 
+      id: upload-release-asset-zip-x64 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url:  https://uploads.github.com/repos/naveen521kk/manim-build/releases/28937495/assets{?name,label}
+        upload_url:  ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./windows.choco.build.py3.8.3.x64.exe
         asset_name: windows.choco.build.py3.8.3.x64.exe
         asset_content_type: application/exe
+    - name: Upload Release Asset x64
+      id: upload-release-asset-exe-x64 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url:  ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Manim_1.0x64.exe
+        asset_name: Manim_1.0x64.exe
+        asset_content_type: application/exe
+    - name: Upload Release Asset x64
+      id: upload-release-asset-exe-x86
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url:  ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ././Manim_1.0x86.exe
+        asset_name: ./Manim_1.0x86.exe
+        asset_content_type: application/exe
+  choco_test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Make choco Package
+      run: |
+        cd "Choco Package"
+        cd "manim"
+        echo "Starting Chocolately"
+        choco pack
+        choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'"
+        echo "::set-env name=Path::$env:Path"
+    - name: Test Generated Files
+      run: |
+        manim -h
+        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
+        manim basic.py SquareToCircle
+        echo "Update Manim"
+        choco upgrade manim -source "'.;https://chocolatey.org/api/v2/'"
+        manim basic.py SquareToCircle
+        choco uninstall -y manim
+    - name: test 32-bit
+      run: |
+        cd "Choco Package"
+        cd "manim"
+        echo "Starting Chocolately"
+        choco install --no-progress manim --x86 -source "'.;https://chocolatey.org/api/v2/'"
+        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
+        manim basic.py SquareToCircle
+        echo "Update Manim"
+        choco upgrade manim -source "'.;https://chocolatey.org/api/v2/'"
+        manim basic.py SquareToCircle
+        choco uninstall -y manim
+    - name: Upload Logs if failes
+      uses: actions/upload-artifact@v2
+      if: ${{ failure() }}
+      with:
+        name: chocologs
+        path: C:\ProgramData\chocolatey\logs\chocolatey.log
