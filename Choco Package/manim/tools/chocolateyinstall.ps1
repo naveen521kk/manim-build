@@ -1,16 +1,16 @@
 ﻿$ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://github.com/naveen521kk/manim-build/releases/download/0.0.0.1/build.3.8.3.x86.exe'
-$url64      = 'https://github.com/naveen521kk/manim-build/releases/download/0.0.0.1/build.3.8.3.x64.exe'
+$url        = 'https://github.com/naveen521kk/manim-build/releases/download/v0.1.0/windows.choco.build.py3.8.3.x86.exe'
+$url64      = 'https://github.com/naveen521kk/manim-build/releases/download/v0.1.0/windows.choco.build.py3.8.3.x64.exe'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
   unzipLocation = $toolsDir
   url           = $url
   url64bit      = $url64
-  checksum      = '0314451A7A95EC772556756E50C9650F1F222BD5912DAA1F027AABE4B308ADB6'
+  checksum      = 'ce842e633b6104237badc3a5c295bf9943f96c1307ea8831ae2b65e4382e1a14'
   checksumType  = 'sha256'
-  checksum64    = '91f347b3499f664d4ac9c435f8327c25846fa27072471f35bab5719383f135d8'
+  checksum64    = '8ee4e29916e305a10f80dbbc12b70d02866b2b7e6d67a3bb3b1709c983a0eeae'
   checksumType64= 'sha256'
 }
 $osBitness = Get-ProcessorBits
