@@ -2,10 +2,10 @@ name: Build Manim For Windows
 
 on:
   push:
-    branches: [ master, release-*]
+    branches: [ master, release-*,testing]
 
 jobs:
-  build_3_8_3:
+  build_executables:
     runs-on: windows-latest
 
     steps:
@@ -94,7 +94,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url:  ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ././Manim_1.0x86.exe
+        asset_path: ./Manim_1.0x86.exe
         asset_name: ./Manim_1.0x86.exe
         asset_content_type: application/exe
   choco_test:
