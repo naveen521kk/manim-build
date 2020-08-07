@@ -18,9 +18,9 @@ Install-ChocolateyZipPackage @packageArgs
 if ( $osBitness -eq 32 -or $env:ChocolateyForceX86 -eq "true") {
     $pydir= "$toolsDir\python.3.8.3.x86\pythonx86.3.8.3\tools"
     Set-Location $pydir
-    ./python.exe -m pip install -q --upgrade pip
-    ./python.exe -m pip install -q "$toolsDir\python.3.8.3.x86\manim"
-    ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
+    ./python.exe -m pip install -q --no-warn-script-location --upgrade pip
+    ./python.exe -m pip install -q --no-warn-script-location "$toolsDir\python.3.8.3.x86\manim"
+    ./python.exe -m pip install -q --no-warn-script-location https://github.com/ManimCommunity/manim/archive/master.zip
     $files = get-childitem $installDir -include *.exe -recurse
 
     foreach ($file in $files) {
@@ -33,9 +33,9 @@ if ( $osBitness -eq 32 -or $env:ChocolateyForceX86 -eq "true") {
 else {
     $pydir= "$toolsDir\python.3.8.3.x64\python.3.8.3\tools"
     Set-Location $pydir
-    ./python.exe -m pip install -q --upgrade pip
-    ./python.exe -m pip install -q "$toolsDir\python.3.8.3.x64\manim"
-    ./python.exe -m pip install -q https://github.com/ManimCommunity/manim/archive/master.zip
+    ./python.exe -m pip install -q --no-warn-script-location --upgrade pip
+    ./python.exe -m pip install -q --no-warn-script-location "$toolsDir\python.3.8.3.x64\manim"
+    ./python.exe -m pip install -q --no-warn-script-location https://github.com/ManimCommunity/manim/archive/master.zip
     $files = get-childitem $installDir -include *.exe -recurse
 
     foreach ($file in $files) {
