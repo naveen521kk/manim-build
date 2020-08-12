@@ -1,2 +1,2 @@
 ﻿$ErrorActionPreference = 'Stop';
-python -m pip uninstall manimlib
+python -m pip uninstall -q manimlib
