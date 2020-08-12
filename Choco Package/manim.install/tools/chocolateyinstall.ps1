@@ -7,9 +7,5 @@ Get-ChocolateyWebFile `
   -PackageName "manim" `
   -FileFullPath "$toolsDir\manim.zip" `
   -Url "https://github.com/ManimCommunity/manim/archive/master.zip"
-
-Get-ChocolateyUnzip `
-  -FileFullPath $toolsDir\manim.zip `
-  -Destination  $manimExtractDir`
   
 python -m pip install -q $manimExtractDir
