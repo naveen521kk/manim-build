@@ -138,7 +138,7 @@ jobs:
         cd "manim.install"
         echo "Starting Chocolately"
         choco pack
-        choco install --no-progress manim -source "'.;https://chocolatey.org/api/v2/'"
+        choco install --no-progress manim.install -source "'.;https://chocolatey.org/api/v2/'"
         echo "::set-env name=Path::$env:Path"
     - name: Test Generated Files-1
       run: |
