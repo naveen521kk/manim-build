@@ -8,4 +8,4 @@ if ($manim) {
     $manim | Stop-Process -Force
   }
 }
-Remove-Variable firefox
+Remove-Variable manim
