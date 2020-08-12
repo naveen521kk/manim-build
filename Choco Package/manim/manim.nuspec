@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>manim</id>
-    <version>1.0</version>
-    <packageSourceUrl>https://github.com/manimcommunity/manim</packageSourceUrl>
-    <owners>Naveen</owners>
+    <version>1.0.20200807</version>
+    <packageSourceUrl>https://github.com/naveen521kk/manim-build/tree/master/Choco%20Package/manim</packageSourceUrl>
+    <owners>naveen521kk</owners>
     <title>Manim</title>
     <authors>Manim Contributors</authors>
     <projectUrl>https://github.com/manimcommunity/manim</projectUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/ManimCommunity/manim/logo/graph.png</iconUrl>
-    <copyright>Manim Contributors 2020</copyright>
+    <copyright>© Manim Contributors 2020</copyright>
     <licenseUrl>https://github.com/ManimCommunity/manim/blob/master/LICENSE.community</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <docsUrl>https://manim.readthedocs.io/</docsUrl>

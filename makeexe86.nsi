@@ -86,13 +86,13 @@ Section "!${PRODUCT_NAME}" sec_app
 
     StrCmp $MultiUser.InstallMode CurrentUser 0 AddSysPathSystem
       ; Add to PATH for current user
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\python.exe" -Es "$INSTDIR\_system_path.py" add_user "$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
       GoTo AddedSysPath
     AddSysPathSystem:
       ; Add to PATH for all users
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
-      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\python.${PYVER}${ARCH_VERSION}\manim"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" add "$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\Scripts"'
+      nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\python.exe" -m pip install "$INSTDIR\pythonx86.${PYVER}${ARCH_VERSION}\manim"'
     AddedSysPath:
   
   WriteUninstaller $INSTDIR\uninstall.exe
@@ -132,7 +132,7 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\docs"
 
   ; Remove ourselves from %PATH%
-    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\python.${PYVER}\tools\Scripts"'
+    nsExec::ExecToLog '"$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\python" -Es "$INSTDIR\_system_path.py" remove "$INSTDIR\python.${PYVER}${ARCH_VERSION}\pythonx86.${PYVER}\tools\Scripts"'
 
   ; Uninstall files
     Delete "$INSTDIR\logo.ico"
