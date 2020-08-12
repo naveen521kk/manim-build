@@ -154,8 +154,7 @@ jobs:
         choco install --no-progress manim.install --x86 -source "'.;https://chocolatey.org/api/v2/'"
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
-        echo "Update Manim"
-        choco uninstall -y manim
+        choco uninstall -y manim.install
     - name: Upload Logs if failes
       uses: actions/upload-artifact@v2
       if: ${{ failure() }}
