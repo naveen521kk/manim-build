@@ -1,6 +1,6 @@
 ﻿$ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$manimExtractDir="$toolsDir\manim"
+$manimExtractDir=Join-Path $toolsDir "manim"
 python -m pip install -i https://test.pypi.org/simple/ -q pycairo
 
 Get-ChocolateyWebFile `
