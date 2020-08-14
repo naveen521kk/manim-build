@@ -105,9 +105,10 @@ jobs:
 
     - name: Make choco Package
       run: |
-        choco install virtualbox
-        choco install vagrant
+        choco install --no-progress virtualbox
+        choco install --no-progress vagrant
         refreshenv
+        $env:Path += ";C:\Program Files\Vagrant\bin"
         vagrant plugin install sahara
         git clone https://github.com/majkinetor/chocolatey-test-environment.git
         $env:Path += ";$PWD/chocolatey-test-environment"
