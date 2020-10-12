@@ -112,7 +112,7 @@ jobs:
         echo "::set-env name=PATH::$env:PATH"
     - name: Test Generated Files
       run: |
-        $env:PATH="$env:PATH\ChocolateyToolsLocation\pango;$env:PATH"
+        $env:PATH="$env:ChocolateyToolsLocation\pango;$env:PATH"
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
