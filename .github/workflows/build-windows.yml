@@ -113,7 +113,8 @@ jobs:
       shell: cmd
       continue-on-error: true
       run: |
-        set PATH= C:\tools\pango;%PATH%
+        set PATH=C:\tools\pango;%PATH%
+        where libcairo-2.dll
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
