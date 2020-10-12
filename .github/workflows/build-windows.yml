@@ -105,72 +105,27 @@ jobs:
 
     - name: Make choco Package
       run: |
-        choco install --no-progress virtualbox
-        choco install --no-progress vagrant
-        refreshenv
-        $env:Path += ";C:\Program Files\Vagrant\bin"
-        vagrant plugin install sahara
-        git clone https://github.com/majkinetor/chocolatey-test-environment.git
-        $env:Path += ";$PWD/chocolatey-test-environment"
-        vagrant up
-        vagrant sandbox on
-        cd "Choco Package"
-        cd "manim.portable"
-        echo "Starting Chocolately"
-        choco pack
-        choco install --no-progress manim.portable -source "'.;https://chocolatey.org/api/v2/'"
-        echo "::set-env name=Path::$env:Path"
-    - name: Test Generated Files
-      run: |
-        manim -h
-        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
-        manim basic.py SquareToCircle
-        choco uninstall -y manim.portable
-    - name: test 32-bit
-      run: |
-        vagrant up
-        vagrant sandbox on
-        cd "Choco Package"
-        cd "manim.portable"
-        echo "Starting Chocolately"
-        choco install --no-progress manim.portable --x86 -source "'.;https://chocolatey.org/api/v2/'"
-        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
-        manim basic.py SquareToCircle
-        echo "Update Manim"
-        choco upgrade manim.portable -source "'.;https://chocolatey.org/api/v2/'"
-        manim basic.py SquareToCircle
-        choco uninstall -y manim.portable
-    - name: Make choco Package-1
-      run: |
-        vagrant up
-        vagrant sandbox on
-        cd "Choco Package"
-        cd "manim.install"
-        echo "Starting Chocolately"
+        cd "Choco Package\manim.install"        
         choco pack
         choco install --no-progress manim.install -source "'.;https://chocolatey.org/api/v2/'"
-        echo "::set-env name=Path::$env:Path"
-    - name: Test Generated Files-1
+        refreshenv
+        echo "::set-env name=PATH::$env:PATH"
+    - name: Test Generated Files
       run: |
+        $env:PATH="$env:PATH\ChocolateyToolsLocation\pango;$env:PATH"
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
-        echo "Update Manim"
-        choco upgrade manim.install -source "'.;https://chocolatey.org/api/v2/'"
-        manim basic.py SquareToCircle
         choco uninstall -y manim.install
-    - name: test 32-bit
-      run: |
-        cd "Choco Package"
-        cd "manim.install"
-        echo "Starting Chocolately"
-        choco install --no-progress manim.install --x86 -source "'.;https://chocolatey.org/api/v2/'"
-        Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
-        manim basic.py SquareToCircle
-        choco uninstall -y manim.install
+
     - name: Upload Logs if failes
       uses: actions/upload-artifact@v2
       if: ${{ failure() }}
+      with:
+        name: chocologs
+        path: C:\ProgramData\chocolatey\logs\chocolatey.log
+    - name: Upload Logs
+      uses: actions/upload-artifact@v2
       with:
         name: chocologs
         path: C:\ProgramData\chocolatey\logs\chocolatey.log
