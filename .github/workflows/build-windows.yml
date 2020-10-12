@@ -109,10 +109,11 @@ jobs:
         choco pack
         choco install --no-progress manim.install -source "'.;https://chocolatey.org/api/v2/'"
         refreshenv
-        echo "::set-env name=PATH::$env:PATH"
     - name: Test Generated Files
+      shell: cmd
+      continue-on-error: true
       run: |
-        $env:PATH="$env:ChocolateyToolsLocation\pango;$env:PATH"
+        set PATH= C:\tools\pango;%PATH%
         manim -h
         Invoke-WebRequest https://raw.githubusercontent.com/ManimCommunity/manim/master/example_scenes/basic.py -O basic.py
         manim basic.py SquareToCircle
